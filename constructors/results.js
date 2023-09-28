@@ -28,21 +28,18 @@ function construct(resultData) {
         },
         getTimeAsString() {
 
-            console.log(`totaltid ${this.time}`)
+         
 
             const minutes = Math.floor((this.time / 60000))
-            console.log(`minutes ${minutes}`)
+          
 
 
             const msLeft = this.time - (minutes * 60000)
-            console.log(`ms ${msLeft}`)
-
+           
             const seconds = Math.floor((msLeft / 1000)); ///
-            console.log(`seconds ${seconds}`)
 
 
             const decaSeconds = (this.time % 1000) / 10; ///
-            console.log(`decasecs ${decaSeconds}`)
 
             let timeView;
 

@@ -1,30 +1,59 @@
 import * as member from "./constructors/member.js"
 import * as result from "./constructors/results.js";
-import * as listrenderer from "./listrenderer.js";
-
-
+import * as listRenderer from "./listrenderer.js";
+import { memberRenderer } from "./memberRenderer.js";
+import { resultRenderer } from "./resultRenderer.js";
 window.addEventListener("load", start);
 
 
 
 function start() {
     runBuildDisplayMembers();
-    // runBuildAndShowResults();
+    runBuildAndShowResults();
+
+    document.querySelector("#sort-members").addEventListener("change",sortMember);
 }
 
 
 
+function sortMember(){
+    const sortValue = document.querySelector("#sort-members").value
+    console.log("SORT CLICK")
+    if (sortValue === "name"){
+        console.log("NAME")
+    } else if (sortValue === "isActiveMember"){
+        console.log("ACTIVE")
+    } 
+    else if (sortValue === "age") {
+        console.log("AGE")
+    } 
 
+    /* <option value="name">Name</option>
+      <option value="isActiveMember">Active</option>
+      <option value="age">Age</option>
+     */
+}
+
+const members = [];
 
 async function runBuildDisplayMembers() {
     await buildMembersList();
 
-    const memberRenderer = listrenderer.construct(members, "container", "itemRenderer")
-    memberRenderer.render();
+    const renderMember = listRenderer.construct(members, "table#members tbody", memberRenderer)
+    renderMember.render();
     // displayMembers(members);
+    
 }
 
-const members = [];
+async function runBuildAndShowResults() {
+    await buildResults();
+    // showResults(results);
+
+    const renderResult = listRenderer.construct(results, "#results tbody", resultRenderer);
+    renderResult.render()
+
+}
+
 
 async function fetchMembers() {
     const resp = await fetch("members.json");
@@ -64,10 +93,7 @@ async function buildMembersList() {
 
 
 // ----------------------------------------------------------RESULTS--------------------------------------------------
-async function runBuildAndShowResults() {
-    await buildResults();
-    showResults(results);
-}
+
 
 const results = [];
 
@@ -110,55 +136,39 @@ function findMember(memberId) {
 
 
 
-function showResults(resultList) {
-    document.querySelector("#results tbody").innerHTML = "";
+// function showResults(resultList) {
+//     document.querySelector("#results tbody").innerHTML = "";
 
-    const sortedList = sortTime(resultList);
+//     const sortedList = sortTime(resultList);
 
-    for (const result of sortedList) {
-        let name = "";
+//     for (const result of sortedList) {
+// let name = "";
 
-        if (result.member == undefined) {
-            name = "ukendt"
-        } else {
-            name = result.member.name;
-        };
+// if (result.member == undefined) {
+//     name = "ukendt"
+// } else {
+//     name = result.member.name;
+// };
 
-        const html = /*html */ `
-<tr>
-    <td>${new Date(result.date).toLocaleString('da-DK', { dateStyle: 'long' })}</td>
-    <td>${name}</td>
-    <td>${translateDiscipline(result.discipline)}</td>
-    <td>${translateResultType(result.type)}</td>
-    <td>${result.displayTime}</td>
-</tr>
-`
+//         const html = /*html */ `
+// <tr>
+//     <td>${new Date(result.date).toLocaleString('da-DK', { dateStyle: 'long' })}</td>
+//     <td>${name}</td>
+//     <td>${translateDiscipline(result.discipline)}</td>
+//     <td>${translateResultType(result.type)}</td>
+//     <td>${result.displayTime}</td>
+// </tr>
+// `
 
-        document.querySelector("#results tbody").insertAdjacentHTML("beforeend", html);
+//         document.querySelector("#results tbody").insertAdjacentHTML("beforeend", html);
 
-    };
+//     };
 
-    function sortTime(list) {
-        return list.sort((a, b) => a.time - b.time);
-    }
-};
+//     function sortTime(list) {
+//         return list.sort((a, b) => a.time - b.time);
+//     }
+// };
 
-function translateDiscipline(discipline) {
-    if (discipline === "breaststroke") {
-        return "bryst"
-    } else if (discipline === "backstroke") {
-        return "ryg"
-    } else {
-        return discipline;
-    }
-}
 
-function translateResultType(type) {
-    if (type === "training") {
-        return "træning"
-    } else {
-        return "stævne"
-    }
-}
 
 export { findMember }

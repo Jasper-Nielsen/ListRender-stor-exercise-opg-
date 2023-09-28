@@ -1,36 +1,57 @@
+
+
 function construct(list, container, itemRenderer) {
 
     const ListRenderer = {
+        renderers:[],
+        sortBy: undefined,
+        sortDir: undefined,
         render() {
+            const table = document.querySelector(container)
+            for (const renderer of this.renderers) {
+               
+                 const html = renderer.render() 
             
-                const table = document.querySelector("table#members tbody");
-                table.innerHTML = "";
-                //husk getAge() køres på objektet derfor member.getAge()
-                for (const member of list) {
-                    const html = /*html*/`
-    <tr>
-      <td>${member.name} </td>
-      <td>${member.active}</td>
-      <td>${member.birthday}</td>
-      <td>${member.age}</td>
-      <td>${determineAgeCategory(member.age)}</td>
-      <td>${member.email}</td>
-    </tr>`;
-
-                    table.insertAdjacentHTML("beforeend", html);
+                 table.insertAdjacentHTML("beforeend",html)
+                const addedHtml = table.lastElementChild
+                    if(renderer.postRender){
+                        renderer.postRender(addedHtml)
+                    }
                 
-            }
+
+
+                }
+        //    return list.forEach(item => {itemRenderer.render(item)});
+        },
+       sort(sortBy,sortDir){
+        if(this.sortDir === undefined){
+            sortDir = "asc"
+        }else {
+            sortDir = "dec"
         }
+        sortBy = 
+       }
     }
+
+    for (const item of list) {
+        const renderer = Object.create(itemRenderer);
+        renderer.item = item;
+        ListRenderer.renderers.push(renderer)
+    }
+
+
     return ListRenderer;
 }
 
+// const sortedList = sortTime(resultList);
 
-function determineAgeCategory(age) {
-    if (age < 18) {
-        return "Junior"
-    } else {
-        return "Senior"
-    }
-}
-export {construct}
+// for (const result of sortedList) {
+//     let name = "";
+
+//     if (result.member == undefined) {
+//         name = "ukendt"
+//     } else {
+//         name = result.member.name;
+//     };
+
+export { construct }
