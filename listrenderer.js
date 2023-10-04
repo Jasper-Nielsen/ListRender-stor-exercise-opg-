@@ -6,6 +6,7 @@ function construct(list, container, itemRenderer) {
         renderers:[],
         sortBy: undefined,
         sortDir: undefined,
+        // container: container,
         render() {
             const table = document.querySelector(container)
             for (const renderer of this.renderers) {
@@ -23,13 +24,21 @@ function construct(list, container, itemRenderer) {
                 }
         //    return list.forEach(item => {itemRenderer.render(item)});
         },
-       sort(sortBy,sortDir){
-        if(this.sortDir === undefined){
-            sortDir = "asc"
-        }else {
-            sortDir = "dec"
-        }
-        sortBy = 
+       sortList(sortBy){
+           if (sortBy.value === "name-ascending"){
+            this.renderers.sort((a,b)=> a.item.name.localeCompare(b.item.name));
+           } else if (sortBy.value === "name-descending"){
+               this.renderers.sort((a, b) => b.item.name.localeCompare(a.item.name));
+           } else if (sortBy.value === "age") {
+               this.renderers.sort((a, b) => a.item.age - b.item.age);
+           }
+           this.clear();
+           this.render();
+           
+       },
+       clear(){
+           const table = document.querySelector(container)
+           table.innerHTML = "";
        }
     }
 

@@ -3,6 +3,8 @@ import * as result from "./constructors/results.js";
 import * as listRenderer from "./listrenderer.js";
 import { memberRenderer } from "./memberRenderer.js";
 import { resultRenderer } from "./resultRenderer.js";
+
+
 window.addEventListener("load", start);
 
 
@@ -11,37 +13,50 @@ function start() {
     runBuildDisplayMembers();
     runBuildAndShowResults();
 
-    document.querySelector("#sort-members").addEventListener("change",sortMember);
+    
+    
+ 
+    
 }
 
 
 
-function sortMember(){
-    const sortValue = document.querySelector("#sort-members").value
-    console.log("SORT CLICK")
-    if (sortValue === "name"){
-        console.log("NAME")
-    } else if (sortValue === "isActiveMember"){
-        console.log("ACTIVE")
-    } 
-    else if (sortValue === "age") {
-        console.log("AGE")
-    } 
+// function sortMember(){
+//     const sortValue = document.querySelector("#sort-members").value
+    
+// renderMember.sort()
+    
+//     console.log("SORT CLICK")
+//     if (sortValue === "name"){
+//         console.log("NAME")
+        
+//     } else if (sortValue === "isActiveMember"){
+//         console.log("ACTIVE")
+//     } 
+//     else if (sortValue === "age") {
+//         console.log("AGE")
+//     } 
 
-    /* <option value="name">Name</option>
-      <option value="isActiveMember">Active</option>
-      <option value="age">Age</option>
-     */
-}
+//     /* <option value="name">Name</option>
+//       <option value="isActiveMember">Active</option>
+//       <option value="age">Age</option>
+//      */
+// }
 
 const members = [];
 
 async function runBuildDisplayMembers() {
     await buildMembersList();
 
+    // const target = document.querySelector("table#members tbody");
+    
     const renderMember = listRenderer.construct(members, "table#members tbody", memberRenderer)
     renderMember.render();
     // displayMembers(members);
+    
+    const sorting = document.querySelector("#sort-members");
+
+    sorting.addEventListener("change", () => renderMember.sortList(sorting) );
     
 }
 
