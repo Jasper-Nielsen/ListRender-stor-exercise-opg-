@@ -21,30 +21,6 @@ function start() {
 
 
 
-
-
-// function sortMember(){
-//     const sortValue = document.querySelector("#sort-members").value
-    
-// renderMember.sort()
-    
-//     console.log("SORT CLICK")
-//     if (sortValue === "name"){
-//         console.log("NAME")
-        
-//     } else if (sortValue === "isActiveMember"){
-//         console.log("ACTIVE")
-//     } 
-//     else if (sortValue === "age") {
-//         console.log("AGE")
-//     } 
-
-//     /* <option value="name">Name</option>
-//       <option value="isActiveMember">Active</option>
-//       <option value="age">Age</option>
-//      */
-// }
-
 const members = [];
 const results = [];
 
@@ -100,14 +76,7 @@ async function runBuildDisplayMembersAndResults() {
 
 
 
-// async function runBuildAndShowResults() {
-//     await buildResults();
-//     // showResults(results);
 
-//     const renderResult = listRenderer.construct(results, "#results tbody", resultRenderer);
-//     renderResult.render()
-
-// }
 
 
 async function fetchMembers() {
@@ -125,24 +94,6 @@ async function buildMembersList() {
     }
 }
 
-// function displayMembers(members) {
-//     const table = document.querySelector("table#members tbody");
-//     table.innerHTML = "";
-//     //husk getAge() køres på objektet derfor member.getAge()
-//     for (const member of members) {
-//         const html = /*html*/`
-//     <tr>
-//       <td>${member.name} </td>
-//       <td>${member.active}</td>
-//       <td>${member.birthday}</td>
-//       <td>${member.age}</td>
-//       <td>${determineAgeCategory(member.age)}</td>
-//       <td>${member.email}</td>
-//     </tr>`;
-
-//         table.insertAdjacentHTML("beforeend", html);
-//     }
-// }
 
 
 
@@ -191,38 +142,7 @@ function findMember(memberId) {
 
 
 
-// function showResults(resultList) {
-//     document.querySelector("#results tbody").innerHTML = "";
 
-//     const sortedList = sortTime(resultList);
-
-//     for (const result of sortedList) {
-// let name = "";
-
-// if (result.member == undefined) {
-//     name = "ukendt"
-// } else {
-//     name = result.member.name;
-// };
-
-//         const html = /*html */ `
-// <tr>
-//     <td>${new Date(result.date).toLocaleString('da-DK', { dateStyle: 'long' })}</td>
-//     <td>${name}</td>
-//     <td>${translateDiscipline(result.discipline)}</td>
-//     <td>${translateResultType(result.type)}</td>
-//     <td>${result.displayTime}</td>
-// </tr>
-// `
-
-//         document.querySelector("#results tbody").insertAdjacentHTML("beforeend", html);
-
-//     };
-
-//     function sortTime(list) {
-//         return list.sort((a, b) => a.time - b.time);
-//     }
-// };
 
 
 

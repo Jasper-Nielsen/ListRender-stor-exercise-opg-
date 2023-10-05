@@ -3,7 +3,7 @@ import { findMember } from "../app.js";
 function construct(resultData) {
     //sprøgsmål kald funktioner og visning af datoer i contruktoren eller i showResults
     const ResultsObject = {
-        date: resultData.date,
+        date: new Date(resultData.date),
         id: resultData.id,
         memberId: resultData.memberId,
         discipline: resultData.discipline,

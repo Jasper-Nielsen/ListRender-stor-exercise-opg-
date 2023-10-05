@@ -14,7 +14,7 @@ const resultRenderer = {
 
             const html = /*html */ `
 <tr>
-    <td>${new Date(result.date).toLocaleString('da-DK', { dateStyle: 'long' })}</td>
+    <td>${result.date.toLocaleString('da-DK', { dateStyle: 'short' })}</td>
     <td>${result.memberName}</td>
     <td>${dictDicipline[(result.discipline)]}</td>
     <td>${dictResultType[result.type]}</td>

@@ -6,7 +6,7 @@ function construct(memberdata) {
         lastName: memberdata.lastName,
         _active: memberdata.isActiveMember,
         competitive: memberdata.isCompetitive,
-        birthday: new Date(memberdata.dateOfBirth).toLocaleString('da-DK', { dateStyle: 'short' }),
+        birthday: new Date(memberdata.dateOfBirth),
         email: memberdata.email,
         gender: memberdata.gender,
         image: memberdata.image,

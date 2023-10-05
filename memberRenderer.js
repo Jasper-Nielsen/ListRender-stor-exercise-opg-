@@ -16,7 +16,7 @@ const memberRenderer = {
     <tr>
       <td>${member.name} </td>
       <td>${dictActive[member.active]}</td>
-      <td>${member.birthday}</td>
+      <td>${member.birthday.toLocaleString('da-DK', { dateStyle: 'short' })}</td>
       <td>${member.age}</td>
       <td>${member.group}</td>
     </tr>`;
