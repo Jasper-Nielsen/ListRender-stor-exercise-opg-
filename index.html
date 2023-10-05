@@ -6,10 +6,13 @@
   <title>Members</title>
 </head>
 <body>
-  <h1>Members</h1>
+  
 
-  <table id="members">
-
+  <div id="tabs">
+    <!-- <h2 data-tab-show="members">Medlemmer</h2>
+    <h2 data-tab-show="results">Resultater</h2> -->
+  <table id="members" class="hide">
+    <h2>Members</h2>
     <label for="sort-members">Sort Members</label>
 
     <select name="sort-members" id="sort-members"> 
@@ -17,16 +20,31 @@
       <option value="name-descending">Last Name first</option>
         <option value="name-ascending">First Name first</option>
       <option value="age">Age</option>
-    
     </select>
+
+
+    <label for="filter-members">Filter Members</label>
+    <select name="filter-members" id="filter-members">
+      <option value = "">Alle</option>
+      <option value = "junior">Junior</option>
+      <option value = "senior">Senior</option>
+      <option value="active">Aktiv</option>
+      <option value="inactive">Inaktiv</option>
+    </select>
+    
+    <label>
+      <input type="checkbox" id="filter-active" value="active">
+    </label>
+
+
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Active</th>
-        <th>BirthDay</th>
-        <th>Age</th>
-        <th>status</th>
-        <th>email</th>
+        <th id="sort-member-name">Name</th>
+        <th id="sort-member-active">Active</th>
+        <th id="sort-member-birthday">BirthDay</th>
+        <th id="sort-member-age">Age</th>
+        <th id="sort-member-status">status</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -34,19 +52,30 @@
     </tbody>
   </table>
 
+  <div id="results-tab" class="hide">
   <table id="results">
+    <label for="filter-results">Filter Members</label>
+    <select name="filter-results" id="filter-results">
+      <option value = "all">Alle</option>
+      <option value = "training">Træning</option>
+      <option value = "competition">stævne</option>
+    </select>
+
     <thead>
+      <h2>Results</h2>
         <tr>
-            <th>Dato</th>
-            <th>Medlems Id</th>
-            <th>Disciplin</th>
-            <th>Type</th>
-            <th>Tid</th>
+            <th data-action ="sort" data-sortby="date">Dato</th>
+            <th data-action ="sort" data-sortby="memberName">Medlem</th>
+            <th data-action ="sort" data-sortby="discipline">Disciplin</th>
+            <th data-action ="sort" data-sortby="type">Type</th>
+            <th data-action ="sort" data-sortby="time">Tid</th>
         </tr>
     </thead>
         <tbody></tbody>
    
 </table>
+</div>
+</div>
 
   <script src="app.js" type="module"></script>
 </body>

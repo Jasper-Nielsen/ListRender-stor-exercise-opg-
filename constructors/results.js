@@ -26,6 +26,13 @@ function construct(resultData) {
 
 
         },
+        get memberName()  {
+            if(this.member !== undefined){
+                return this.member.name
+            } else {
+                    return "undefined"
+            }
+        },
         getTimeAsString() {
 
          

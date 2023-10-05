@@ -10,14 +10,16 @@ window.addEventListener("load", start);
 
 
 function start() {
-    runBuildDisplayMembers();
-    runBuildAndShowResults();
-
+    // runBuildDisplayMembers();
+    // runBuildAndShowResults();
+    runBuildDisplayMembersAndResults()
     
     
  
     
 }
+
+
 
 
 
@@ -44,30 +46,68 @@ function start() {
 // }
 
 const members = [];
+const results = [];
 
-async function runBuildDisplayMembers() {
+async function runBuildDisplayMembersAndResults() {
     await buildMembersList();
-
+    await buildResults();
     // const target = document.querySelector("table#members tbody");
     
-    const renderMember = listRenderer.construct(members, "table#members tbody", memberRenderer)
-    renderMember.render();
+    const memberList = listRenderer.construct(members, "table#members tbody", memberRenderer)
+    memberList.render();
     // displayMembers(members);
-    
-    const sorting = document.querySelector("#sort-members");
 
-    sorting.addEventListener("change", () => renderMember.sortList(sorting) );
+    const resultList=listRenderer.construct(results, "table#results tBody", resultRenderer)
+    resultList.render();
+
+    document.querySelector("#sort-member-name").addEventListener("click", () => memberList.sort( "name"))
+    document.querySelector("#sort-member-active").addEventListener("click", () => memberList.sort( "active"))
+    document.querySelector("#sort-member-birthday").addEventListener("click", () => memberList.sort("birthday"))
+    document.querySelector("#sort-member-age").addEventListener("click", () => memberList.sort("age"))
+    document.querySelector("#sort-member-status").addEventListener("click", () => memberList.sort( "group"))
+
+
+    document.querySelectorAll("[data-action='sort']").forEach(sortButton =>{
+        sortButton.addEventListener("click", () => resultList.sort(sortButton.dataset.sortby))
+    });
+
+
+    //--------------------------------
+    // const sorting = document.querySelector("#sort-members");
+    // sorting.addEventListener("change", () => renderMember.sortList(sorting) );
+
+    
+
+    // const filtering = document.querySelector("#filter-members");
+    // filtering.addEventListener("change", () => {renderMember.filterList(filtering.value, filtering)
+    
+    // // console.log("filter clikced")
+    // });
+
+
+
+    //------------------------
+    // const checkbox = document.querySelector("#filter-active");
+
+    
+    // checkbox.addEventListener("click", () => renderMember.filterList(checkbox.value, checkbox.checked));
     
 }
 
-async function runBuildAndShowResults() {
-    await buildResults();
-    // showResults(results);
 
-    const renderResult = listRenderer.construct(results, "#results tbody", resultRenderer);
-    renderResult.render()
 
-}
+
+
+
+
+// async function runBuildAndShowResults() {
+//     await buildResults();
+//     // showResults(results);
+
+//     const renderResult = listRenderer.construct(results, "#results tbody", resultRenderer);
+//     renderResult.render()
+
+// }
 
 
 async function fetchMembers() {
@@ -110,7 +150,7 @@ async function buildMembersList() {
 // ----------------------------------------------------------RESULTS--------------------------------------------------
 
 
-const results = [];
+
 
 async function fetchResults() {
     const response = await fetch("results.json");

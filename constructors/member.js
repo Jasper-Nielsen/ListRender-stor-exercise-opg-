@@ -20,17 +20,23 @@ function construct(memberdata) {
             return `${this.firstName} ${this.lastName}`
         },
         isJunior() {
-            return this.age() < 18;
+            return this.age < 18;
         },
         isSenior() {
-            return this.age() >= 18;
+            return this.age >= 18;
+        },
+        get group(){
+            if(this.isJunior){
+                // console.log(` juniorstat is junior`)
+                return "junior";
+            }
+            if(this.isSenior){
+                console.log(` seniorstat is senior`)
+                return "senior";
+            }
         },
         get active() {
-            if (this._active === true) {
-                return "active"
-            } else {
-                return "inactive"
-            }
+            return this._active;
         }
     }
     Object.defineProperties(MemberObject, {
