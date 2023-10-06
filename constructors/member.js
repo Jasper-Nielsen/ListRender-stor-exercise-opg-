@@ -1,30 +1,31 @@
 
-function construct(memberdata) {
 
-    const MemberObject = {
-        firstName: memberdata.firstName,
-        lastName: memberdata.lastName,
-        _active: memberdata.isActiveMember,
-        competitive: memberdata.isCompetitive,
-        birthday: new Date(memberdata.dateOfBirth),
-        email: memberdata.email,
-        gender: memberdata.gender,
-        image: memberdata.image,
-        hasPayed: memberdata.hasPayed,
-        id: memberdata.id,
+class MemberObject  {
+        constructor(memberdata) {
+        this.firstName = memberdata.firstName;
+        this.lastName = memberdata.lastName;
+        this._active = memberdata.isActiveMember;
+        this.competitive = memberdata.isCompetitive;
+        this.birthday = new Date(memberdata.dateOfBirth);
+        this.email = memberdata.email;
+        this.gender = memberdata.gender;
+        this.image = memberdata.image;
+        this.hasPayed = memberdata.hasPayed;
+        this.id = memberdata.id;
+        }
         get age() {
-            const ageInMiliseconds = Date.now() - new Date(memberdata.dateOfBirth)
+            const ageInMiliseconds = Date.now() - this.birthday
             return Math.floor(ageInMiliseconds / 1000 / 60 / 60 / 24 / 365)
-        },
+        }
         get name() {
             return `${this.firstName} ${this.lastName}`
-        },
-        isJunior() {
+        }
+        get isJunior() {
             return this.age < 18;
-        },
-        isSenior() {
+        }
+        get isSenior() {
             return this.age >= 18;
-        },
+        }
         get group(){
             if(this.isJunior){
                 // console.log(` juniorstat is junior`)
@@ -34,23 +35,25 @@ function construct(memberdata) {
                 console.log(` seniorstat is senior`)
                 return "senior";
             }
-        },
+        }
         get active() {
             return this._active;
         }
     }
-    Object.defineProperties(MemberObject, {
-        id: {
-            writable: false
-        },
-        name: {
-            enumerable: false
-        },
-        image: {
-            enumerable: false
-        }
-    })
-    return MemberObject;
-};
 
-export { construct }
+
+    // Object.defineProperties(MemberObject, {
+    //     id: {
+    //         writable: false
+    //     },
+    //     name: {
+    //         enumerable: false
+    //     },
+    //     image: {
+    //         enumerable: false
+    //     }
+    // })
+    
+
+
+export { MemberObject }

@@ -1,9 +1,8 @@
-import * as member from "./constructors/member.js"
-import * as result from "./constructors/results.js";
-import * as listRenderer from "./listrenderer.js";
-import { memberRenderer } from "./memberRenderer.js";
-import { resultRenderer } from "./resultRenderer.js";
 
+import {ListRenderer} from "./listrenderer.js";
+import { MemberRenderer } from "./memberRenderer.js";
+import { ResultRenderer } from "./resultRenderer.js";
+import * as controller from "./controller.js"
 
 window.addEventListener("load", start);
 
@@ -21,19 +20,17 @@ function start() {
 
 
 
-const members = [];
-const results = [];
+
 
 async function runBuildDisplayMembersAndResults() {
-    await buildMembersList();
-    await buildResults();
+  
     // const target = document.querySelector("table#members tbody");
     
-    const memberList = listRenderer.construct(members, "table#members tbody", memberRenderer)
+    const memberList = new ListRenderer(await controller.readMembers(), "table#members tbody", new MemberRenderer)
     memberList.render();
     // displayMembers(members);
 
-    const resultList=listRenderer.construct(results, "table#results tBody", resultRenderer)
+    const resultList= new ListRenderer(await controller.readResults(), "table#results tBody", new ResultRenderer)
     resultList.render();
 
     document.querySelector("#sort-member-name").addEventListener("click", () => memberList.sort( "name"))
@@ -79,66 +76,6 @@ async function runBuildDisplayMembersAndResults() {
 
 
 
-async function fetchMembers() {
-    const resp = await fetch("members.json");
-    const data = await resp.json();
-    return data;
-}
-
-async function buildMembersList() {
-    const originalObjects = await fetchMembers();
-
-    for (const orgobj of originalObjects) {
-        const memberObj = member.construct(orgobj);
-        members.push(memberObj);
-    }
-}
-
-
-
-
-
-// ----------------------------------------------------------RESULTS--------------------------------------------------
-
-
-
-
-async function fetchResults() {
-    const response = await fetch("results.json");
-    const data = await response.json()
-    return data;
-}
-async function buildResults() {
-    //hent data først
-    const originalResults = await fetchResults();
-
-    // hver resultat skal tilføjes til results liste derfor for of
-    // husk resultat objekterne skal laves derfor kald på konstruktor
-    for (const personResult of originalResults) {
-        const resultObject = result.construct(personResult);
-
-
-        // mål byg liste. dvs push noget til results = []
-        results.push(resultObject);
-    }
-
-}
-
-
-function findMember(memberId) {
-
-    return members.find(member => member.id === memberId)
-
-
-    // let foundMember = undefined;
-
-    // for (const member of members) {
-    //     if (memberId === member.id) {
-    //         foundMember = member;
-    //     } 
-    // } return foundMember
-
-}
 
 
 
@@ -146,4 +83,7 @@ function findMember(memberId) {
 
 
 
-export { findMember }
+
+
+
+

@@ -1,20 +1,24 @@
 
 
-function construct(list, container, itemRenderer) {
+class ListRenderer {
 
-    const ListRenderer = {
-        container: document.querySelector(container),
-        itemRenderer: itemRenderer,
-        // sortBy: undefined,
-        // sortDir: undefined,
+        constructor(list, container, itemRenderer) {
+        this.container = document.querySelector(container)
+            console.log(this.container)
+            console.log(container)
+        this.itemRenderer = itemRenderer
+        this.list = list
+        
+        }
         render() {
+            
             this.container.innerHTML = "";
-            for (const item of list) {
+            for (const item of this.list) {
                 const html = this.itemRenderer.render(item)
                 this.container.insertAdjacentHTML("beforeend", html)
             }
-        },
-        sort(sortBy, sortDir) {
+        }
+        sort(sortBy, sortDir){
 
 
             if (sortDir) {
@@ -37,8 +41,8 @@ function construct(list, container, itemRenderer) {
 
             // console.log(`sort list by ${sortBy} in direction ${sortDir}`)
 
-            list.sort((a, b) => {
-                // FORSTÅR IKKE SORT ALGORITMEN !!!!
+            this.list.sort((a, b) => {
+                
                 if (this.sortDir === "asc") {
                     if (a[this.sortBy] > b[this.sortBy]) {
                         return 1
@@ -58,7 +62,7 @@ function construct(list, container, itemRenderer) {
             })
                 ;
             this.render();
-        },
+        }
 
 
         // sortList(sortBy) {
@@ -76,7 +80,7 @@ function construct(list, container, itemRenderer) {
         clear() {
             const table = document.querySelector(container)
             table.innerHTML = "";
-        },
+        }
 
         filterList(filterProperty, filterValue) {
             this.filterProperty = filterProperty;
@@ -101,8 +105,8 @@ function construct(list, container, itemRenderer) {
     // }
 
 
-    return ListRenderer;
-}
+    // return ListRenderer;
+
 
 // const sortedList = sortTime(resultList);
 
@@ -115,4 +119,4 @@ function construct(list, container, itemRenderer) {
 //         name = result.member.name;
 //     };
 
-export { construct }
+export { ListRenderer }

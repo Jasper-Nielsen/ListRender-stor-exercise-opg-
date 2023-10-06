@@ -1,22 +1,26 @@
-import { findMember } from "../app.js";
+import { findMember } from "../controller.js";
 
-function construct(resultData) {
-    //sprøgsmål kald funktioner og visning af datoer i contruktoren eller i showResults
-    const ResultsObject = {
-        date: new Date(resultData.date),
-        id: resultData.id,
-        memberId: resultData.memberId,
-        discipline: resultData.discipline,
-        type: resultData.resultType,
-        compareTime: resultData.time,
-        member: findMember(resultData.memberId),
-        displayTime: undefined,
+//sprøgsmål kald funktioner og visning af datoer i contruktoren eller i showResults
+class ResultObject  {
+        constructor(resultData) {
+        this.date = new Date(resultData.date);
+        this.id = resultData.id;
+        this.memberId = resultData.memberId;
+        this.discipline = resultData.discipline;
+        this.type = resultData.resultType;
+        this.compareTime = resultData.time;
+        this.member = findMember(resultData.memberId);
+        this.displayTime = undefined;
+        this.setTimeFromString(resultData.time);
+        this.getTimeAsString();
+
+        }
         get isCompetition() {
             return this.type === "competition"
-        },
+        }
         get isTraining() {
             return this.type === "training"
-        },
+        }
         setTimeFromString(input) {
             const minutter = Number(input.substring(0, 2));
             const sekunder = Number(input.substring(3, 5));
@@ -25,14 +29,14 @@ function construct(resultData) {
             this.time = miliSekunder + sekunder * 1000 + minutter * 60000;
 
 
-        },
+        }
         get memberName()  {
             if(this.member !== undefined){
                 return this.member.name
             } else {
                     return "undefined"
             }
-        },
+        }
         getTimeAsString() {
 
          
@@ -74,26 +78,25 @@ function construct(resultData) {
 
     }
 
-    ResultsObject.setTimeFromString(resultData.time);
-    ResultsObject.getTimeAsString();
+ 
 
-    Object.defineProperties(ResultsObject, {
-        id: {
-            writable: false
-        },
-        isCompetition: {
-            enumerable: false
-        },
-        isTraining: {
-            enumerable: false
-        },
-        time: {
-            enumerable: false
-        }
+    // Object.defineProperties(ResultsObject, {
+    //     id: {
+    //         writable: false
+    //     },
+    //     isCompetition: {
+    //         enumerable: false
+    //     },
+    //     isTraining: {
+    //         enumerable: false
+    //     },
+    //     time: {
+    //         enumerable: false
+    //     }
 
-    })
-    return ResultsObject;
+    // })
+   
 
-};
 
-export { construct }
+
+export { ResultObject}

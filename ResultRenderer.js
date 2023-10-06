@@ -1,4 +1,4 @@
-const resultRenderer = {
+class ResultRenderer  {
     render(result) {
 // const result = this.item;
         // const sortedList = sortTime(resultList);
@@ -53,6 +53,6 @@ const dictResultType ={
     competition: "konkurrence"
 }
 
-export { resultRenderer }
+export { ResultRenderer  }
 
 //#results tbody

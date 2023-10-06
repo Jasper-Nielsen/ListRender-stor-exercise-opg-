@@ -5,7 +5,7 @@ const dictActive ={
 
 
 
-const memberRenderer = {
+class MemberRenderer {
     
     render(member) {
         // const member = this.item;
@@ -24,11 +24,11 @@ const memberRenderer = {
             return html
 
         }
-    },
+    }
       
 }
 
 
 
 
-export { memberRenderer }
+export { MemberRenderer }
